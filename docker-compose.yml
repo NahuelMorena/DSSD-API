@@ -1,26 +1,29 @@
 version: '3'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-db
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: dssdapi
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+  postgres:
+    image: postgres
+    container_name: postgres-db
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: dssdapi
+
   java-app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: java-app
     depends_on:
-       - mysql
+      - postgres
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dssdapi
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
+      DATABASE_USERNAME: admin
+      DATABASE_PASSWORD: admin
+      DATABASE_URL: jdbc:postgresql://postgres:5432/dssdapi
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
