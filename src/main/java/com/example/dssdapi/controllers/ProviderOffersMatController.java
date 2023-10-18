@@ -38,6 +38,13 @@ public class ProviderOffersMatController {
     	    @RequestParam(name = "dateStartManufacture", required = true) @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateStartManufacture){
        return ResponseEntity.ok(this.providerOffersMatService.getOffersByMaterialName(materialName,dateStartManufacture));
     }
+	
+	@GetMapping(baseUrl + "/getAllOffers")
+    @Operation(summary = "Obtener ofertas", description = "Obtiene el listado de todas las ofertas")
+    @ApiResponse(responseCode = "200", description = "Ofertas encontradas", content = @Content(mediaType = "application/json"))
+    public HttpEntity<List<ProviderOffersMaterial>> getFurnitures(){
+        return ResponseEntity.ok(this.providerOffersMatService.getAllOffers());
+    }
 
 	
 	

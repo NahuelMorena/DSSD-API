@@ -21,4 +21,22 @@ public class Material {
     private String name;
 
     public Material(){}
+
+	public Material( String name,Set<ProviderOffersMaterial> offers, Set<ProviderReserveMaterial> reserves) {
+		this.name = name;
+		this.offers = offers;
+		this.reserves = reserves;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	
+    
+    
 }

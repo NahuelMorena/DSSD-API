@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dssdapi.model.ProviderOffersMaterial;
 import com.example.dssdapi.repositories.ProviderOffersMaterialRepository;
@@ -18,20 +19,25 @@ public class ProvidersOffersMaterialServiceImplementation implements ProviderOff
 	@Autowired
 	private ProviderOffersMaterialRepository providerOffersMatRepository;
 
-	@Override
+	@Transactional
 	public List<ProviderOffersMaterial> getOffersByMaterialName(String materialName, Date dateStartManufacture) {
 		return providerOffersMatRepository.findOffersByMaterialName(materialName,dateStartManufacture.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 	}
 
-	@Override
+	@Transactional
 	public ProviderOffersMaterial getById(Long id) {
 		return this.providerOffersMatRepository.findById(id).orElse(null);
 	}
 
-	@Override
+	@Transactional
 	public void updateQuantityProviderOffersMaterial(ProviderOffersMaterial po,Integer newQuantity) {
 		po.setQuantity_available(newQuantity);
 		this.providerOffersMatRepository.save(po);
+	}
+
+	@Transactional
+	public List<ProviderOffersMaterial> getAllOffers() {
+		return (List<ProviderOffersMaterial>) this.providerOffersMatRepository.findAll();
 	}
 	
 	

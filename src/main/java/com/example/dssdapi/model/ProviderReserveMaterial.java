@@ -26,4 +26,40 @@ public class ProviderReserveMaterial {
     private Integer number_of_rescheduling;
 
     public ProviderReserveMaterial(){}
+
+	public ProviderReserveMaterial(Provider provider, Material material, Integer quantity, LocalDate delivery_date) {
+		this.provider = provider;
+		this.material = material;
+		this.quantity = quantity;
+		this.delivery_date = delivery_date;
+		this.number_of_rescheduling=0;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public LocalDate getDelivery_date() {
+		return delivery_date;
+	}
+
+	public Integer getNumber_of_rescheduling() {
+		return number_of_rescheduling;
+	}
+	
+	
+    
+    
 }

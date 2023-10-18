@@ -11,8 +11,7 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_role_type")
+    @Enumerated(EnumType.STRING)
     private RoleType role;
 
     @OneToMany(mappedBy = "provider")
@@ -27,4 +26,32 @@ public class Provider {
 
     private String email;
     public Provider(){}
+	public Provider(RoleType role, Set<ProviderOffersMaterial> offers, Set<ProviderReserveMaterial> reserves,
+			String name, String phone, String email) {
+		this.role = role;
+		this.offers = offers;
+		this.reserves = reserves;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+	}
+	public Long getId() {
+		return id;
+	}
+	public RoleType getRole() {
+		return role;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	
+	
+    
+    
 }

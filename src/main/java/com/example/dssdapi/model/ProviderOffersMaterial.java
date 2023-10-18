@@ -28,28 +28,14 @@ public class ProviderOffersMaterial {
 
     public ProviderOffersMaterial(){}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Provider getProvider() {
-		return provider;
-	}
-
-	public void setProvider(Provider provider) {
+	public ProviderOffersMaterial(Provider provider, Material material, Integer quantity_available,
+			LocalDate delivery_date_available, Float price_by_unit) {
+		super();
 		this.provider = provider;
-	}
-
-	public Material getMaterial() {
-		return material;
-	}
-
-	public void setMaterial(Material material) {
 		this.material = material;
+		this.quantity_available = quantity_available;
+		this.delivery_date_available = delivery_date_available;
+		this.price_by_unit = price_by_unit;
 	}
 
 	public Integer getQuantity_available() {
@@ -60,21 +46,26 @@ public class ProviderOffersMaterial {
 		this.quantity_available = quantity_available;
 	}
 
-	public LocalDate getDelivery_date_available() {
-		return delivery_date_available;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDelivery_date_available(LocalDate delivery_date_available) {
-		this.delivery_date_available = delivery_date_available;
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public LocalDate getDelivery_date_available() {
+		return delivery_date_available;
 	}
 
 	public Float getPrice_by_unit() {
 		return price_by_unit;
 	}
-
-	public void setPrice_by_unit(Float price_by_unit) {
-		this.price_by_unit = price_by_unit;
-	}
+    
     
     
 }

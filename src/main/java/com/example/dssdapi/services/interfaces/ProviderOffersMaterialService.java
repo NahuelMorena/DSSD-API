@@ -12,5 +12,6 @@ public interface ProviderOffersMaterialService {
 	public List<ProviderOffersMaterial> getOffersByMaterialName(String materialName,Date dateStartManufacture);
 	public ProviderOffersMaterial getById(Long id);
 	public void updateQuantityProviderOffersMaterial(ProviderOffersMaterial po,Integer newQuantity);
+	public List<ProviderOffersMaterial> getAllOffers();
 	
 }

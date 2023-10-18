@@ -1,9 +1,11 @@
 package com.example.dssdapi.services;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dssdapi.model.Material;
 import com.example.dssdapi.model.Provider;
@@ -17,10 +19,16 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 	@Autowired
 	private ProviderReserveMaterialRepository providerReserveMatRepository;
 
-	@Override
+	@Transactional
 	public ProviderReserveMaterial createProviderReserveMaterial(Provider provider,Material material,Integer quantity,LocalDate deliveryDate) {
-		
-		return null;
+		ProviderReserveMaterial pr=new ProviderReserveMaterial(provider,material,quantity,deliveryDate);
+		pr=providerReserveMatRepository.save(pr);
+		return pr;
+	}
+
+	@Transactional
+	public List<ProviderReserveMaterial> getAllReserves() {
+		return (List<ProviderReserveMaterial>) this.providerReserveMatRepository.findAll();
 	}
 
 }
