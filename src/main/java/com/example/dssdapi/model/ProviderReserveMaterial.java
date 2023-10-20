@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="providers_reserve_materials")
 public class ProviderReserveMaterial {
@@ -21,6 +23,7 @@ public class ProviderReserveMaterial {
 
     private Integer quantity;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate delivery_date;
 
     private Integer number_of_rescheduling;

@@ -9,4 +9,5 @@ import com.example.dssdapi.model.Material;
 @Service
 public interface MaterialService {
 	public List<Material> getAllMaterials();
+	public Material getById(Long id);
 }

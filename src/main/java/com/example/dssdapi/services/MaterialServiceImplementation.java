@@ -20,4 +20,9 @@ public class MaterialServiceImplementation implements MaterialService {
 	public List<Material> getAllMaterials(){
 		return (List<Material>)materialRepository.findAll();
 	}
+
+	@Transactional
+	public Material getById(Long id) {
+		return this.materialRepository.findById(id).orElse(null);
+	}
 }

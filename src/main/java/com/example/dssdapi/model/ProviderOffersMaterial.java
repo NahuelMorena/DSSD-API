@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="providers_offers_materials")
 public class ProviderOffersMaterial {
@@ -22,6 +24,7 @@ public class ProviderOffersMaterial {
 
     private Integer quantity_available;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate delivery_date_available;
 
     private Float price_by_unit;
