@@ -19,10 +19,12 @@ import com.example.dssdapi.services.interfaces.ProviderReserveMaterialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
 @Controller
+@SecurityRequirement(name = "bearerAuth")
 @Tags(value= {@Tag(name="Reserva de materiales",description="Endpoints de reserva de materiales")})
 public class ProviderReserveMatController {
 	
