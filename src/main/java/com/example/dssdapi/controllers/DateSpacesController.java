@@ -55,7 +55,7 @@ public class DateSpacesController {
 		examples = @ExampleObject(value = "{\n" +
 				"  \"idManufacturingSpace\": 2,\n" +
 				"  \"available_from\": \"28-10-2023\",\n" +
-				"  \"available_until\": \"10-11-2023\",\n" +
+				"  \"available_until\": \"10-11-2023\n" +
 				"}")))
 	public HttpEntity<DateSpaces> createDateSpaces(@RequestBody DatesSpacesDTO request){
 		ManufacturingSpace m = this.manufacturingSpaceService.getById(request.getIdManufacturingSpace());
