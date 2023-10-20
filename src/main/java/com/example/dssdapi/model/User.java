@@ -18,6 +18,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
+@Table(name = "api_user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails{
@@ -33,11 +35,11 @@ public class User implements UserDetails{
 	
 
 	@Id
-	@Column(name = "id_user")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String username;
 	
 	@JsonIgnore
@@ -99,8 +101,7 @@ public class User implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return  this.getUsername();
+		return  this.username;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.dssdapi.model.Material;
@@ -15,12 +16,22 @@ import com.example.dssdapi.model.Provider;
 import com.example.dssdapi.model.ProviderOffersMaterial;
 import com.example.dssdapi.model.ProviderReserveMaterial;
 import com.example.dssdapi.model.RoleType;
+import com.example.dssdapi.model.User;
+import com.example.dssdapi.model.UserRole;
 import com.example.dssdapi.repositories.MaterialRepository;
 import com.example.dssdapi.repositories.ProviderOffersMaterialRepository;
 import com.example.dssdapi.repositories.ProviderRepository;
+import com.example.dssdapi.repositories.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class DbInitializer implements ApplicationRunner {
+	
+	@Autowired
+	UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private MaterialRepository materialRepository;
@@ -33,6 +44,15 @@ public class DbInitializer implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		if (userRepository.findByUsername("usuario").isEmpty()) {
+			User user= User.builder()
+					.username("usuario")
+					.password(passwordEncoder.encode("1234"))
+					.role(UserRole.USER)
+					.build();
+			userRepository.save(user);
+		}
+		
 		Material material1=new Material("Madera", new HashSet<ProviderOffersMaterial>(),new HashSet<ProviderReserveMaterial>());
 		this.materialRepository.save(material1);
 		Provider provider1=new Provider(RoleType.PRODUCTOR,new HashSet<ProviderOffersMaterial>(),new HashSet<ProviderReserveMaterial>(),"Proveedor1","221-1111111", "Proveedor1@gmail.com");

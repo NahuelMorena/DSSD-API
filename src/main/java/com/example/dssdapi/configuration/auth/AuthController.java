@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
-@RequestMapping("/auth")
+@RestController
+@RequestMapping("api/auth")
 @RequiredArgsConstructor
 public class AuthController {
     
