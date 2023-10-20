@@ -40,7 +40,7 @@ public class ProviderReserveMatController {
 	@Operation(summary = "Reservar materiales", description = "Reserva un material indicando el id de la oferta y cantidad")
 	public HttpEntity<ProviderReserveMaterial> reserveMaterial(@RequestBody OfferMaterialDTO request){
 		ProviderOffersMaterial providerOffer=this.providerOffersMatService.getById(request.getIdProviderOfferMaterial());
-		if(providerOffer!= null && providerOffer.getQuantity_available() >= request.getQuantity()) {
+		if(providerOffer!= null && providerOffer.getQuantity_available() >= request.getQuantity() && request.getQuantity() > 0) {
 			ProviderReserveMaterial providerReserveMaterial=this.providerReserveMatService.createProviderReserveMaterial(providerOffer.getProvider(), 
 					providerOffer.getMaterial(),request.getQuantity(),providerOffer.getDelivery_date_available());
 			this.providerOffersMatService.updateQuantityProviderOffersMaterial(providerOffer,providerOffer.getQuantity_available()-request.getQuantity());
