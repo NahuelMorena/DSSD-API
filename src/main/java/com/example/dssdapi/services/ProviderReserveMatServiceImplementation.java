@@ -2,7 +2,9 @@ package com.example.dssdapi.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import com.example.dssdapi.model.DateSpaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,17 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 	@Transactional
 	public List<ProviderReserveMaterial> getAllReserves() {
 		return (List<ProviderReserveMaterial>) this.providerReserveMatRepository.findAll();
+	}
+
+	@Transactional
+	public Optional<ProviderReserveMaterial> getByID(Long id) {
+		return this.providerReserveMatRepository.findById(id);
+	}
+
+	@Transactional
+	public void alocateManufacturingSpace(ProviderReserveMaterial reserve, DateSpaces dateSpaces) {
+		reserve.setDateSpaces(dateSpaces);
+		this.providerReserveMatRepository.save(reserve);
 	}
 
 }

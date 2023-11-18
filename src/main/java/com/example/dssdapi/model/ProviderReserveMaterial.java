@@ -21,6 +21,10 @@ public class ProviderReserveMaterial {
     @JoinColumn(name = "id_material")
     private Material material;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_dateSpaces")
+	private DateSpaces dateSpaces;
+
     private Integer quantity;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -61,8 +65,10 @@ public class ProviderReserveMaterial {
 	public Integer getNumber_of_rescheduling() {
 		return number_of_rescheduling;
 	}
-	
-	
-    
-    
+
+	public DateSpaces getDateSpaces() { return dateSpaces; }
+
+	public void setDateSpaces(DateSpaces dateSpaces) {
+		this.dateSpaces = dateSpaces;
+	}
 }
