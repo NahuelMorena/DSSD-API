@@ -1,8 +1,10 @@
 package com.example.dssdapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,6 +20,10 @@ public class DateSpaces {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_manufacturingSpace")
     private ManufacturingSpace manufacturingSpace;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "dateSpaces")
+	private Set<ProviderReserveMaterial> reserves;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate available_from;

@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.example.dssdapi.model.*;
 import com.example.dssdapi.model.dto.DatesSpacesDTO;
+import com.example.dssdapi.model.dto.ReservesDto;
 import com.example.dssdapi.services.interfaces.ManufacturingSpaceService;
+import com.example.dssdapi.services.interfaces.ProviderReserveMaterialService;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -33,6 +35,9 @@ public class DateSpacesController {
 
 	@Autowired
 	private ManufacturingSpaceService manufacturingSpaceService;
+
+	@Autowired
+	private ProviderReserveMaterialService providerReserveMaterialService;
 	
 	@GetMapping(baseUrl + "/getAvailableSpaces")
     @Operation(summary = "Obtener espacios disponibles", description = "Obtiene el listado de todos los espacios que se encuentran disponbiles aún")
@@ -70,15 +75,18 @@ public class DateSpacesController {
 	@PutMapping(baseUrl + "/reserveManufacturingSpace/{id}")
 	 @Operation(summary = "Reservar espacio de fabribación", description = "Reserva un espacio de fabricación indicando id")
     @ApiResponse(responseCode = "200", description = "Reserva realizada exitosamente", content = @Content(mediaType = "application/json"))
-	public HttpEntity<DateSpaces> reserveSpace(@PathVariable Long id){
+	public HttpEntity<DateSpaces> reserveSpace(@PathVariable Long id, @RequestBody ReservesDto request){
 		DateSpaces ds=this.dateSpaceService.getById(id);
 		if(ds!=null &&  ! ds.getReserved()) {
-			ds=this.dateSpaceService.updateReservedSpace(ds);
-			return ResponseEntity.ok(ds);
+			for (ReservesDto.ReserveRequest reserve : request.getReserves()){
+				ProviderReserveMaterial prm = providerReserveMaterialService.getByID(reserve.getId())
+								.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
+				providerReserveMaterialService.alocateManufacturingSpace(prm, ds);
+			}
+			return ResponseEntity.ok(this.dateSpaceService.updateReservedSpace(ds));
 		}
 		else {
 			return ResponseEntity.badRequest().body(null);
 		}
 	}
-	
 }
