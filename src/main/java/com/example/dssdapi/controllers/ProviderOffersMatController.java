@@ -22,12 +22,14 @@ import com.example.dssdapi.services.interfaces.ProviderOffersMaterialService;
 import com.example.dssdapi.services.interfaces.ProviderService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 @Controller
@@ -51,6 +53,7 @@ public class ProviderOffersMatController {
     @ApiResponse(responseCode = "200", description = "Ofertas encontradas", content = @Content(mediaType = "application/json"))
     public HttpEntity<List<ProviderOffersMaterial>> getOffersByMaterial(
     		@RequestParam(name = "materialName",required=true) String materialName,
+    		 @Parameter(schema = @Schema(type = "string", format = "date"))
     	    @RequestParam(name = "dateStartManufacture", required = true) @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateStartManufacture){
        return ResponseEntity.ok(this.providerOffersMatService.getOffersByMaterialName(materialName,dateStartManufacture));
     }
