@@ -3,7 +3,9 @@ package com.example.dssdapi.services;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.dssdapi.Utils.RandomDecisionUtils;
 import com.example.dssdapi.model.*;
+import com.example.dssdapi.services.interfaces.ProviderReserveMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,15 @@ public class DateSpaceServiceImplementation implements DateSpaceService {
 	public DateSpaces getById(Long id) {
 		return this.dateSpaceRepository.findById(id).orElse(null);
 	}
-	
-	
+
+	@Transactional
+	public Boolean manufacturingCompletionInquiry(ProviderReserveMaterial reserve) {
+		DateSpaces dateSpaces = this.getById(reserve.getDateSpaces().getId());
+		//Operación sobre dateSpaces que pueda determinar si termino el proceso de fabricación
+
+		//Función que devuelve un valor booleano aleatorio
+		return RandomDecisionUtils.makeRandomDecision();
+	}
+
+
 }

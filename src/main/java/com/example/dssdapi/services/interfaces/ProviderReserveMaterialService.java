@@ -18,4 +18,6 @@ public interface ProviderReserveMaterialService {
 	public List<ProviderReserveMaterial> getAllReserves();
 	public Optional<ProviderReserveMaterial> getByID(Long id);
 	public void alocateManufacturingSpace(ProviderReserveMaterial reserve, DateSpaces dateSpaces);
+	public Boolean queryExistanceOfDelays(List<Long> reserves_ids);
+	public Boolean checkArrivalOfAllMaterials(List<Long> reserves_ids);
 }

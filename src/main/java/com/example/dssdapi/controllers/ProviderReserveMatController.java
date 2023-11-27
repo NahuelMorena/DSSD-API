@@ -57,4 +57,19 @@ public class ProviderReserveMatController {
     public HttpEntity<List<ProviderReserveMaterial>> getFurnitures(){
         return ResponseEntity.ok(this.providerReserveMatService.getAllReserves());
     }
+
+	@PostMapping(baseUrl + "/queryExistanceOfDelays")
+	@Operation(summary = "Consulta existencia de retrasos", description = "Consulta la existencia de posibles retrasos en la entrega de materiales")
+	@ApiResponse(responseCode = "200", description = "Se respondio sobre la existencia de retrasos", content = @Content(mediaType = "application/json"))
+	public HttpEntity<Boolean> queryExistanceOfDelays(@RequestBody List<Long> request){
+		return ResponseEntity.ok(this.providerReserveMatService.queryExistanceOfDelays(request));
+	}
+
+	@PostMapping(baseUrl + "/checkArrivalOfAllMaterials")
+	@Operation(summary = "Consulta de llegada de todos los materiales", description = "Consulta de si llegaron todos los materiales necesarios al espacio de fabricación")
+	@ApiResponse(responseCode = "200", description = "Se respondio sobre si se produjo la llegada de todos los materiales", content = @Content(mediaType = "application/json"))
+	public HttpEntity<Boolean> checkArrivalOfAllMaterials(@RequestBody List<Long> request){
+		return ResponseEntity.ok(this.providerReserveMatService.checkArrivalOfAllMaterials(request));
+	}
+
 }

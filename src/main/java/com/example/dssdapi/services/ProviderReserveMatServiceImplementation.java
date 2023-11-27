@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.dssdapi.Utils.RandomDecisionUtils;
 import com.example.dssdapi.model.DateSpaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,30 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 	public void alocateManufacturingSpace(ProviderReserveMaterial reserve, DateSpaces dateSpaces) {
 		reserve.setDateSpaces(dateSpaces);
 		this.providerReserveMatRepository.save(reserve);
+	}
+
+	@Transactional
+	public Boolean queryExistanceOfDelays(List<Long> reserves_ids){
+		for (Long reserveId : reserves_ids) {
+			ProviderReserveMaterial reserve = this.getByID(reserveId)
+					.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
+			//Operación sobre la reserva que pueda determinar si existe una demora
+		}
+
+		//Funcion que devuelve un valor booleano aleatorio
+		return RandomDecisionUtils.makeRandomDecision();
+	}
+
+	@Transactional
+	public Boolean checkArrivalOfAllMaterials(List<Long> reserves_ids) {
+		for (Long reserveId : reserves_ids) {
+			ProviderReserveMaterial reserve = this.getByID(reserveId)
+					.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
+			//Operación sobre la reserva que pueda determinar si existe una demora
+		}
+
+		//Funcion que devuelve un valor booleano aleatorio
+		return RandomDecisionUtils.makeRandomDecision();
 	}
 
 }

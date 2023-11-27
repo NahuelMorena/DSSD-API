@@ -89,4 +89,20 @@ public class DateSpacesController {
 			return ResponseEntity.badRequest().body(null);
 		}
 	}
+
+	@GetMapping(baseUrl + "checkAvailableManufacturingSpace")
+	@Operation(summary = "Consulta de espacio de fabricación disponible", description = "Se consulta sobre la posible disposición de periodos de tiempo de espacios de fabricación a reservar")
+	@ApiResponse(responseCode = "200", description = "Consulta sobre posibles espacios de fabricación disponibles", content = @Content(mediaType = "application/json"))
+	public HttpEntity<Boolean> checkAvailableManufacturingSpace(){
+		return ResponseEntity.ok(! this.dateSpaceService.getAvailableSpaces().isEmpty());
+	}
+
+	@PostMapping(baseUrl + "manufacturingCompletionInquiry")
+	@Operation(summary = "Consulta sobre la finalización de la fabricación", description = "Se consulta sobre el posible finalización del proceso de fabricación")
+	@ApiResponse(responseCode = "200", description = "Consulta sobre posible finalización del proceso de fabricación", content = @Content(mediaType = "application/json"))
+	public HttpEntity<Boolean> manufacturingCompletionInquiry(@RequestBody Long request){
+		ProviderReserveMaterial providerReserveMaterial = this.providerReserveMaterialService.getByID(request)
+				.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
+		return ResponseEntity.ok(this.dateSpaceService.manufacturingCompletionInquiry(providerReserveMaterial));
+	}
 }
