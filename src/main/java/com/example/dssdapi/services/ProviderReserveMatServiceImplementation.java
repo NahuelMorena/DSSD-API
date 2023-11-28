@@ -47,11 +47,13 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 
 	@Transactional
 	public Boolean queryExistanceOfDelays(List<Long> reserves_ids){
+		/*
 		for (Long reserveId : reserves_ids) {
 			ProviderReserveMaterial reserve = this.getByID(reserveId)
 					.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
 			//Operación sobre la reserva que pueda determinar si existe una demora
 		}
+		*/
 
 		//Funcion que devuelve un valor booleano aleatorio
 		return RandomDecisionUtils.makeRandomDecision();
@@ -59,11 +61,14 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 
 	@Transactional
 	public Boolean checkArrivalOfAllMaterials(List<Long> reserves_ids) {
+		/*
 		for (Long reserveId : reserves_ids) {
 			ProviderReserveMaterial reserve = this.getByID(reserveId)
 					.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
 			//Operación sobre la reserva que pueda determinar si existe una demora
 		}
+		*/
+
 
 		//Funcion que devuelve un valor booleano aleatorio
 		return RandomDecisionUtils.makeRandomDecision();
