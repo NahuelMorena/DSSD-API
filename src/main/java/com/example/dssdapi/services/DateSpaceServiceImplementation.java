@@ -49,7 +49,7 @@ public class DateSpaceServiceImplementation implements DateSpaceService {
 
 	@Transactional
 	public Boolean manufacturingCompletionInquiry(ProviderReserveMaterial reserve) {
-		DateSpaces dateSpaces = this.getById(reserve.getDateSpaces().getId());
+		//DateSpaces dateSpaces = this.getById(reserve.getDateSpaces().getId());
 		//Operación sobre dateSpaces que pueda determinar si termino el proceso de fabricación
 
 		//Función que devuelve un valor booleano aleatorio
