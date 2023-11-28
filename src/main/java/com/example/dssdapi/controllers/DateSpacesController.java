@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.dssdapi.model.*;
 import com.example.dssdapi.model.dto.DatesSpacesDTO;
+import com.example.dssdapi.model.dto.ReserveidDTO;
 import com.example.dssdapi.model.dto.ReservesDto;
 import com.example.dssdapi.services.interfaces.ManufacturingSpaceService;
 import com.example.dssdapi.services.interfaces.ProviderReserveMaterialService;
@@ -100,8 +101,8 @@ public class DateSpacesController {
 	@PostMapping(baseUrl + "/manufacturingCompletionInquiry")
 	@Operation(summary = "Consulta sobre la finalización de la fabricación", description = "Se consulta sobre el posible finalización del proceso de fabricación")
 	@ApiResponse(responseCode = "200", description = "Consulta sobre posible finalización del proceso de fabricación", content = @Content(mediaType = "application/json"))
-	public HttpEntity<Boolean> manufacturingCompletionInquiry(@RequestBody Long request){
-		ProviderReserveMaterial providerReserveMaterial = this.providerReserveMaterialService.getByID(request)
+	public HttpEntity<Boolean> manufacturingCompletionInquiry(@RequestBody ReserveidDTO request){
+		ProviderReserveMaterial providerReserveMaterial = this.providerReserveMaterialService.getByID(request.getReserve_id())
 				.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
 		return ResponseEntity.ok(this.dateSpaceService.manufacturingCompletionInquiry(providerReserveMaterial));
 	}
