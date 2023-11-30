@@ -14,10 +14,11 @@ import com.example.dssdapi.model.ProviderReserveMaterial;
 @Service
 public interface ProviderReserveMaterialService {
 
-	public ProviderReserveMaterial createProviderReserveMaterial(Provider provider,Material material,Integer quantity,LocalDate deliveryDate);
+	public ProviderReserveMaterial createProviderReserveMaterial(Provider provider,Material material,Integer quantity,LocalDate deliveryDate, Long collection_id);
 	public List<ProviderReserveMaterial> getAllReserves();
 	public Optional<ProviderReserveMaterial> getByID(Long id);
 	public void alocateManufacturingSpace(ProviderReserveMaterial reserve, DateSpaces dateSpaces);
+	public List<ProviderReserveMaterial> getByCollectionId(Long collection_id);
 	public Boolean queryExistanceOfDelays(List<Long> reserves_ids);
 	public Boolean checkArrivalOfAllMaterials(List<Long> reserves_ids);
 }

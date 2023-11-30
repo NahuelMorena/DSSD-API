@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -43,7 +44,7 @@ public class ProviderReserveMatController {
 		ProviderOffersMaterial providerOffer=this.providerOffersMatService.getById(request.getIdProviderOfferMaterial());
 		if(providerOffer!= null && providerOffer.getQuantity_available() >= request.getQuantity() && request.getQuantity() > 0) {
 			ProviderReserveMaterial providerReserveMaterial=this.providerReserveMatService.createProviderReserveMaterial(providerOffer.getProvider(), 
-					providerOffer.getMaterial(),request.getQuantity(),providerOffer.getDelivery_date_available());
+					providerOffer.getMaterial(),request.getQuantity(),providerOffer.getDelivery_date_available(),request.getCollection_id());
 			this.providerOffersMatService.updateQuantityProviderOffersMaterial(providerOffer,providerOffer.getQuantity_available()-request.getQuantity());
 			return ResponseEntity.ok(providerReserveMaterial); 
 		}
@@ -58,6 +59,13 @@ public class ProviderReserveMatController {
     public HttpEntity<List<ProviderReserveMaterial>> getFurnitures(){
         return ResponseEntity.ok(this.providerReserveMatService.getAllReserves());
     }
+
+	@GetMapping(baseUrl + "getByCollectionId/{collection_id}")
+	@Operation(summary = "Obtener reservas filtradas por id collection", description = "Obtiene el listado de todas las reservas filtradas por el id de la colección")
+	@ApiResponse(responseCode = "200", description = "Reservas encontradas por id de la colección", content = @Content(mediaType = "application/json"))
+	public HttpEntity<List<ProviderReserveMaterial>> getByIdCollection(@PathVariable Long collection_id){
+		return ResponseEntity.ok(this.providerReserveMatService.getByCollectionId(collection_id));
+	}
 
 	@PostMapping(baseUrl + "/queryExistanceOfDelays")
 	@Operation(summary = "Consulta existencia de retrasos", description = "Consulta la existencia de posibles retrasos en la entrega de materiales")

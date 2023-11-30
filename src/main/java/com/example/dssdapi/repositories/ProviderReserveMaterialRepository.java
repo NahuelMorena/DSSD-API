@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.example.dssdapi.model.ProviderReserveMaterial;
 
-public interface ProviderReserveMaterialRepository extends CrudRepository<ProviderReserveMaterial,Long> {
+import java.util.List;
 
+public interface ProviderReserveMaterialRepository extends CrudRepository<ProviderReserveMaterial,Long> {
+    List<ProviderReserveMaterial> findByCollectionId(Long collectionId);
 }

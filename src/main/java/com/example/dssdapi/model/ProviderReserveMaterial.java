@@ -32,13 +32,16 @@ public class ProviderReserveMaterial {
 
     private Integer number_of_rescheduling;
 
+	private Long collection_id;
+
     public ProviderReserveMaterial(){}
 
-	public ProviderReserveMaterial(Provider provider, Material material, Integer quantity, LocalDate delivery_date) {
+	public ProviderReserveMaterial(Provider provider, Material material, Integer quantity, LocalDate delivery_date, Long collection_id) {
 		this.provider = provider;
 		this.material = material;
 		this.quantity = quantity;
 		this.delivery_date = delivery_date;
+		this.collection_id = collection_id;
 		this.number_of_rescheduling=0;
 	}
 
@@ -70,5 +73,13 @@ public class ProviderReserveMaterial {
 
 	public void setDateSpaces(DateSpaces dateSpaces) {
 		this.dateSpaces = dateSpaces;
+	}
+
+	public Long getCollection_id() {
+		return collection_id;
+	}
+
+	public void setCollection_id(Long collection_id) {
+		this.collection_id = collection_id;
 	}
 }

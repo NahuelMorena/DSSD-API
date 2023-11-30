@@ -23,8 +23,8 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 	private ProviderReserveMaterialRepository providerReserveMatRepository;
 
 	@Transactional
-	public ProviderReserveMaterial createProviderReserveMaterial(Provider provider,Material material,Integer quantity,LocalDate deliveryDate) {
-		ProviderReserveMaterial pr=new ProviderReserveMaterial(provider,material,quantity,deliveryDate);
+	public ProviderReserveMaterial createProviderReserveMaterial(Provider provider,Material material,Integer quantity,LocalDate deliveryDate, Long collection_id) {
+		ProviderReserveMaterial pr=new ProviderReserveMaterial(provider,material,quantity,deliveryDate,collection_id);
 		pr=providerReserveMatRepository.save(pr);
 		return pr;
 	}
@@ -43,6 +43,11 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 	public void alocateManufacturingSpace(ProviderReserveMaterial reserve, DateSpaces dateSpaces) {
 		reserve.setDateSpaces(dateSpaces);
 		this.providerReserveMatRepository.save(reserve);
+	}
+
+	@Transactional
+	public List<ProviderReserveMaterial> getByCollectionId(Long collection_id) {
+		return this.providerReserveMatRepository.findByCollectionId(collection_id);
 	}
 
 	@Transactional
