@@ -19,4 +19,5 @@ public interface DateSpaceService {
 	public DateSpaces createDateSpaces(ManufacturingSpace manufacturingSpace, LocalDate available_from, LocalDate available_until);
 	public DateSpaces getById(Long id);
 	public Boolean manufacturingCompletionInquiry(ProviderReserveMaterial reserve);
+	public List<DateSpaces> getAvailableSpacesByDates(LocalDate from, LocalDate until);
 }

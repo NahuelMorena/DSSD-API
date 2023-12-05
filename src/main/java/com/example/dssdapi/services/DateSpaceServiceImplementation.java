@@ -25,6 +25,11 @@ public class DateSpaceServiceImplementation implements DateSpaceService {
 	}
 
 	@Transactional
+	public List<DateSpaces> getAvailableSpacesByDates(LocalDate from, LocalDate until) {
+		return this.dateSpaceRepository.findAvailableSpacesByDates(from, until);
+	}
+
+	@Transactional
 	public List<DateSpaces> getReservedSpaces() { return this.dateSpaceRepository.findReservedSpaces(); }
 
 	@Transactional
@@ -55,6 +60,4 @@ public class DateSpaceServiceImplementation implements DateSpaceService {
 		//Función que devuelve un valor booleano aleatorio
 		return RandomDecisionUtils.makeRandomDecision();
 	}
-
-
 }

@@ -3,6 +3,7 @@ package com.example.dssdapi.controllers;
 import java.util.List;
 
 import com.example.dssdapi.model.*;
+import com.example.dssdapi.model.dto.DatesDTO;
 import com.example.dssdapi.model.dto.DatesSpacesDTO;
 import com.example.dssdapi.model.dto.ReserveidDTO;
 import com.example.dssdapi.model.dto.ReservesDto;
@@ -45,6 +46,20 @@ public class DateSpacesController {
     @ApiResponse(responseCode = "200", description = "Espacios encontrados", content = @Content(mediaType = "application/json"))
 	public HttpEntity<List<DateSpaces>> getAvailableSpaces(){
 		return ResponseEntity.ok(this.dateSpaceService.getAvailableSpaces());
+	}
+
+	@PostMapping(baseUrl + "/getAvailableSpacesByDates")
+	@Operation(summary = "Obtener espacios disponibles filtrado por fechas", description = "Obtiene el listado de todos los espacios que se encuentren entre los periodos dados")
+	@io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json",
+			examples = @ExampleObject(value = "{\n" +
+					"  \"available_from\": \"28-10-2023\",\n" +
+					"  \"available_until\": \"10-11-2023\"\n" +
+					"}")))
+	public HttpEntity<List<DateSpaces>> getAvailableSpacesByDates(@RequestBody DatesDTO request){
+		if (request.getAvailable_from() == null || request.getAvailable_until() == null || request.getAvailable_from().isAfter(request.getAvailable_until())){
+			throw new IllegalArgumentException("La fecha 'from' debe ser anterior a la fecha 'until'");
+		}
+		return ResponseEntity.ok(dateSpaceService.getAvailableSpacesByDates(request.getAvailable_from(), request.getAvailable_until()));
 	}
 
 	@GetMapping(baseUrl + "/getReservedSpaces")
