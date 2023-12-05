@@ -60,7 +60,7 @@ public class ProviderReserveMatController {
         return ResponseEntity.ok(this.providerReserveMatService.getAllReserves());
     }
 
-	@GetMapping(baseUrl + "getByCollectionId/{collection_id}")
+	@GetMapping(baseUrl + "/getByCollectionId/{collection_id}")
 	@Operation(summary = "Obtener reservas filtradas por id collection", description = "Obtiene el listado de todas las reservas filtradas por el id de la colección")
 	@ApiResponse(responseCode = "200", description = "Reservas encontradas por id de la colección", content = @Content(mediaType = "application/json"))
 	public HttpEntity<List<ProviderReserveMaterial>> getByIdCollection(@PathVariable Long collection_id){
