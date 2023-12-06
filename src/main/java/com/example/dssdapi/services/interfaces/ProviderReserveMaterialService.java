@@ -21,4 +21,5 @@ public interface ProviderReserveMaterialService {
 	public List<ProviderReserveMaterial> getByCollectionId(Long collection_id);
 	public Boolean queryExistanceOfDelays(List<Long> reserves_ids);
 	public Boolean checkArrivalOfAllMaterials(List<Long> reserves_ids);
+	public ProviderReserveMaterial reschedulerReserve(ProviderReserveMaterial reserve);
 }

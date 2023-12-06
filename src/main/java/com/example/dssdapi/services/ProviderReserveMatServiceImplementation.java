@@ -79,4 +79,8 @@ public class ProviderReserveMatServiceImplementation implements ProviderReserveM
 		return RandomDecisionUtils.makeRandomDecision();
 	}
 
+	@Override
+	public ProviderReserveMaterial reschedulerReserve(ProviderReserveMaterial reserve) {
+		return providerReserveMatRepository.save(reserve);
+	}
 }

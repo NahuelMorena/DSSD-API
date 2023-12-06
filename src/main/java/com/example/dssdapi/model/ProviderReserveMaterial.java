@@ -83,5 +83,7 @@ public class ProviderReserveMaterial {
 		this.collectionId = collectionId;
 	}
 
-	
+	public void setDelivery_date(LocalDate delivery_date) {
+		this.delivery_date = delivery_date;
+	}
 }

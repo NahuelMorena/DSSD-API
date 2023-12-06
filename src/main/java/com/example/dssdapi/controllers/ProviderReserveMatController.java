@@ -1,8 +1,10 @@
 package com.example.dssdapi.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.dssdapi.model.dto.QueryDTO;
+import com.example.dssdapi.model.dto.ReservesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +67,20 @@ public class ProviderReserveMatController {
 	@ApiResponse(responseCode = "200", description = "Reservas encontradas por id de la colección", content = @Content(mediaType = "application/json"))
 	public HttpEntity<List<ProviderReserveMaterial>> getByIdCollection(@PathVariable Long collection_id){
 		return ResponseEntity.ok(this.providerReserveMatService.getByCollectionId(collection_id));
+	}
+
+	@PostMapping(baseUrl + "/reschedulerReserves")
+	@Operation(summary = "Reprogramar entrega de las reservas", description = "Obtiene un listado de las reservas a la cual seran actualizadas")
+	@ApiResponse(responseCode = "200", description = "Reprogramar reservas", content = @Content(mediaType = "application/json"))
+	public HttpEntity<List<ProviderReserveMaterial>> reschedulerReserves(@RequestBody ReservesDto request){
+		List<ProviderReserveMaterial> reserves = new ArrayList<>();
+		for (ReservesDto.ReserveRequest reserve : request.getReserves()){
+			ProviderReserveMaterial r = providerReserveMatService.getByID(reserve.getId())
+					.orElseThrow(() -> new RuntimeException("La reserva no se encontro"));
+			r.setDelivery_date(r.getDelivery_date().plusDays(10));
+			reserves.add(providerReserveMatService.reschedulerReserve(r));
+		}
+		return ResponseEntity.ok(reserves);
 	}
 
 	@PostMapping(baseUrl + "/queryExistanceOfDelays")
